@@ -27,12 +27,17 @@ namespace LojaWeb.DAO
 
         public void Atualiza(Produto produto)
         {
-
+            ITransaction transaction = session.BeginTransaction();
+            session.Update(produto);
+            transaction.Commit();
         }
 
         public Produto BuscaPorId(int id)
         {
-            return null;
+            ITransaction transaction = session.BeginTransaction();
+            Produto produto = session.Get<Produto>(id);
+            transaction.Commit();
+            return produto;
         }
 
         public IList<Produto> Lista()

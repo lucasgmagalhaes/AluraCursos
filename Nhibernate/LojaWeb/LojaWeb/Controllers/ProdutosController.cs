@@ -43,7 +43,7 @@ namespace LojaWeb.Controllers
 
         public ActionResult Visualiza(int id)
         {
-            Produto p = new Produto();
+            Produto p = produtoDAO.BuscaPorId(id);
             return View(p);
         }
 

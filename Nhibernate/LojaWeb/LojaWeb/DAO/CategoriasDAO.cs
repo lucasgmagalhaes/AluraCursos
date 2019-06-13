@@ -28,12 +28,17 @@ namespace LojaWeb.DAO
 
         public void Atualiza(Categoria categoria)
         {
-
+            ITransaction transaction = session.BeginTransaction();
+            session.Update(categoria);
+            transaction.Commit();
         }
 
         public Categoria BuscaPorId(int id)
         {
-            return null;
+            ITransaction transaction = session.BeginTransaction();
+            Categoria categoria = session.Get<Categoria>(id);
+            transaction.Commit();
+            return categoria;
         }
 
         public IList<Categoria> Lista()
