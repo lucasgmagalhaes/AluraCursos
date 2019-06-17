@@ -220,6 +220,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infra\NHibernateHelper.cs" />
+    <Compile Include="Infra\TransactionFilter.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Carrinho.cs" />
     <Compile Include="Models\ProdutosPorCategoria.cs" />

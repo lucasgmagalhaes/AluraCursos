@@ -15,9 +15,7 @@ namespace LojaWeb.DAO
 
         public void Adiciona(Venda venda)
         {
-            ITransaction transaction = session.BeginTransaction();
             session.Save(venda);
-            transaction.Commit();
         }
 
         public IList<Venda> Lista()

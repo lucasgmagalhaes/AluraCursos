@@ -8,6 +8,9 @@ namespace LojaWeb.App_Start
     using Ninject.Web.Common;
     using System;
     using System.Web;
+    using Ninject.Web.Mvc.FilterBindingSyntax;
+    using LojaWeb.Infra;
+    using System.Web.Mvc;
 
     public static class NinjectWebCommon
     {
@@ -51,6 +54,8 @@ namespace LojaWeb.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            int ordemExecucao = 1;
+            kernel.BindFilter<TransactionFilter>(FilterScope.Global, ordemExecucao);
         }
     }
 }
