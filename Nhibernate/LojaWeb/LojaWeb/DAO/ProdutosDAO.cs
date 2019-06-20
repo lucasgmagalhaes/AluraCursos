@@ -1,6 +1,7 @@
 ﻿using LojaWeb.Entidades;
 using NHibernate;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LojaWeb.DAO
 {
@@ -35,24 +36,32 @@ namespace LojaWeb.DAO
             return null;
         }
 
-        public IList<Produto> Lista()
+        public List<Produto> Lista()
         {
-            return new List<Produto>();
+            IQuery query = session.CreateQuery("from produto");
+            return query.List<Produto>().ToList();
         }
 
         public IList<Produto> ProdutosComPrecoMaiorDoQue(double? preco)
         {
-            return new List<Produto>();
+            IQuery query = session.CreateQuery("from produto where preco > :minimo");
+            query.SetParameter("minimo", preco.GetValueOrDefault(0));
+            return query.List<Produto>().ToList();
         }
 
         public IList<Produto> ProdutosDaCategoria(string nomeCategoria)
         {
-            return new List<Produto>();
+            IQuery query = session.CreateQuery("from produto p where p.Categoria.Nome = :nomeCategoria");
+            query.SetParameter("nomeCategoria", nomeCategoria);
+            return query.List<Produto>().ToList();
         }
 
         public IList<Produto> ProdutosDaCategoriaComPrecoMaiorDoQue(double? preco, string nomeCategoria)
         {
-            return new List<Produto>();
+            IQuery query = session.CreateQuery("from produto p where p.Categoria.Nome = :nomeCategoria and p.preco > :preco");
+            query.SetParameter("nomeCategoria", nomeCategoria);
+            query.SetParameter("preco", preco.GetValueOrDefault(0.0));
+            return query.List<Produto>().ToList();
         }
 
         public IList<Produto> ListaPaginada(int paginaAtual)

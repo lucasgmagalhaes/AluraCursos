@@ -62,13 +62,13 @@ namespace LojaWeb.Controllers
         {
             ViewBag.Nome = nome;
 
-            IList<Categoria> categorias = new List<Categoria>();
+            IList<Categoria> categorias = this.categoriaDAO.BuscaPorNome(nome);
             return View(categorias);
         }
 
         public ActionResult NumeroDeProdutosPorCategoria()
         {
-            IList<ProdutosPorCategoria> produtosPorCategoria = new List<ProdutosPorCategoria>();
+            IList<ProdutosPorCategoria> produtosPorCategoria = this.categoriaDAO.ListaNumeroDeProdutosPorCategoria();
             return View(produtosPorCategoria);
         }
     }
