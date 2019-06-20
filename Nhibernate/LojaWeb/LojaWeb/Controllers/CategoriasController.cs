@@ -43,7 +43,7 @@ namespace LojaWeb.Controllers
 
         public ActionResult Visualiza(int id)
         {
-            Categoria categoria = new Categoria();
+            Categoria categoria = categoriaDAO.BuscaPorId(id);
             return View(categoria);
         }
 

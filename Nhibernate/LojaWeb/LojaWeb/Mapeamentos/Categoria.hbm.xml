@@ -5,5 +5,11 @@
       <generator class="identity"/>
     </id>
     <property name="Nome"/>
+    
+    <bag name="Produtos" inverse="true">
+      <key column="CategoriaId" />
+      <one-to-many class="Produto" />
+    </bag>
+    
   </class>
 </hibernate-mapping>

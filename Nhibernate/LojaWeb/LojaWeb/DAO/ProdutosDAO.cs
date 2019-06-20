@@ -16,9 +16,7 @@ namespace LojaWeb.DAO
 
         public void Adiciona(Produto produto)
         {
-            ITransaction transaction = session.BeginTransaction();
             session.Save(produto);
-            transaction.Commit();
         }
 
         public void Remove(Produto produto)
@@ -28,12 +26,13 @@ namespace LojaWeb.DAO
 
         public void Atualiza(Produto produto)
         {
-
+            session.Merge(produto);
         }
 
         public Produto BuscaPorId(int id)
         {
-            return null;
+            Produto produto = session.Get<Produto>(id);
+            return produto;
         }
 
         public List<Produto> Lista()

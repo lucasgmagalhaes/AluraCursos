@@ -15,9 +15,7 @@ namespace LojaWeb.DAO
 
         public void Adiciona(Usuario usuario)
         {
-            ITransaction transaction = session.BeginTransaction();
             session.Save(usuario);
-            transaction.Commit();
         }
 
         public void Remove(Usuario usuario)
@@ -27,12 +25,13 @@ namespace LojaWeb.DAO
 
         public void Atualiza(Usuario usuario)
         {
-
+            session.Update(usuario);
         }
 
         public Usuario BuscaPorId(int id)
         {
-            return null;
+            Usuario usuario = session.Get<Usuario>(id);
+            return usuario;
         }
 
         public IList<Usuario> Lista()

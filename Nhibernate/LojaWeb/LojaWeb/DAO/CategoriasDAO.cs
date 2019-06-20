@@ -18,9 +18,7 @@ namespace LojaWeb.DAO
 
         public void Adiciona(Categoria categoria)
         {
-            ITransaction transaction = session.BeginTransaction();
             session.Save(categoria);
-            transaction.Commit();
         }
 
         public void Remove(Categoria categoria)
@@ -30,12 +28,13 @@ namespace LojaWeb.DAO
 
         public void Atualiza(Categoria categoria)
         {
-
+            session.Update(categoria);
         }
 
         public Categoria BuscaPorId(int id)
         {
-            return null;
+            Categoria categoria = session.Get<Categoria>(id);
+            return categoria;
         }
 
         public IList<Categoria> Lista()

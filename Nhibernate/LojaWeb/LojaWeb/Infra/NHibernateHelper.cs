@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace LojaWeb.Infra
 {
-    public class NHibernateHelper
+    public static class NHibernateHelper
     {
         private static readonly ISessionFactory factory = RecuperaConfiguracao().BuildSessionFactory();
 
