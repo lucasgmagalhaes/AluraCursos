@@ -20,7 +20,8 @@ namespace LojaWeb.DAO
 
         public IList<Venda> Lista()
         {
-            return new List<Venda>();
+            IQuery query = session.CreateQuery("from venda");
+            return query.List<Venda>();
         }
     }
 }

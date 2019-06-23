@@ -1,9 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="LojaWeb" namespace="LojaWeb.Entidades">
-  <class name="Usuario">
+  <class name="Usuario" abstract="true">
     <id name="Id">
       <generator class="identity"/>
     </id>
+
+    <!--Tabela única-->
+    <!--<discriminator column="Tipo" type="System.String" />
+
+    <subclass name="PessoaFisica">
+      <property name="CPF"/>
+    </subclass>
+    <subclass name="PessoaJuridica">
+      <property name="CNPJ"/>
+    </subclass>-->
+
+    <joined-subclass name="PessoaFisica">
+      <key column="UsuarioId"/>
+      <property name="CPF"/>
+    </joined-subclass>
+    <joined-subclass name="PessoaJuridica">
+      <key column="UsuarioId"/>
+      <property name="CNPJ"/>
+    </joined-subclass>
+    
     <property name="Nome"/>
   </class>
 </hibernate-mapping>

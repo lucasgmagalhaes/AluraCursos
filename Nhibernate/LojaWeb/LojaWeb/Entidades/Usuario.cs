@@ -1,6 +1,6 @@
 ﻿namespace LojaWeb.Entidades
 {
-    public class Usuario
+    public abstract class Usuario
     {
         public virtual int Id { get; set; }
 
