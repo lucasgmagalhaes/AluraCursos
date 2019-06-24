@@ -7,6 +7,26 @@
     <id name="Id">
       <generator class="identity"/>
     </id>
+
+    <!--Tabela única-->
+    <!--<discriminator column="Tipo" type="System.String" />
+
+    <subclass name="PessoaFisica">
+      <property name="CPF"/>
+    </subclass>
+    <subclass name="PessoaJuridica">
+      <property name="CNPJ"/>
+    </subclass>-->
+
+    <joined-subclass name="PessoaFisica">
+      <key column="UsuarioId"/>
+      <property name="CPF"/>
+    </joined-subclass>
+    <joined-subclass name="PessoaJuridica">
+      <key column="UsuarioId"/>
+      <property name="CNPJ"/>
+    </joined-subclass>
+    
     <property name="Nome"/>
   </class>
 </hibernate-mapping>

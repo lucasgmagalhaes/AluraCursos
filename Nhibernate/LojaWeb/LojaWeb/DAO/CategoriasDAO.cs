@@ -1,7 +1,9 @@
 ﻿using LojaWeb.Entidades;
 using LojaWeb.Models;
 using NHibernate;
+using NHibernate.Transform;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LojaWeb.DAO
 {
@@ -40,14 +42,18 @@ namespace LojaWeb.DAO
             return new List<Categoria>();
         }
 
-        public IList<Categoria> BuscaPorNome(string nome)
+        public List<Categoria> BuscaPorNome(string nome)
         {
-            return new List<Categoria>();
+            IQuery query = session.CreateQuery("from Categoria where nome = :nome");
+            query.SetParameter("nome", nome);
+            return query.List<Categoria>().ToList();
         }
 
         public IList<ProdutosPorCategoria> ListaNumeroDeProdutosPorCategoria()
         {
-            return new List<ProdutosPorCategoria>();
+            IQuery query = session.CreateQuery("select p.Categorias, count(p) as NumeroDeProdutos from produtos p group by p.categoria");
+            query.SetResultTransformer(Transformers.AliasToBean<ProdutosPorCategoria>());
+            return query.List<ProdutosPorCategoria>().ToList();
         }
     }
 

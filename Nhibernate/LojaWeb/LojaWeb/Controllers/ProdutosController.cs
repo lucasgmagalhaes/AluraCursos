@@ -20,8 +20,7 @@ namespace LojaWeb.Controllers
 
         public ActionResult Index()
         {
-
-            IList<Produto> produtos = new List<Produto>();
+            List<Produto> produtos = this.produtoDAO.Lista();
             return View(produtos);
         }
 
@@ -54,23 +53,19 @@ namespace LojaWeb.Controllers
 
         public ActionResult ProdutosComPrecoMinimo(double? preco)
         {
-            ViewBag.Preco = preco;
-            IList<Produto> produtos = new List<Produto>();
+            IList<Produto> produtos = this.produtoDAO.ProdutosComPrecoMaiorDoQue(preco);
             return View(produtos);
         }
 
         public ActionResult ProdutosDaCategoria(string nomeCategoria)
         {
-            ViewBag.NomeCategoria = nomeCategoria;
-            IList<Produto> produtos = new List<Produto>();
+            IList<Produto> produtos = this.produtoDAO.ProdutosDaCategoria(nomeCategoria);
             return View(produtos);
         }
 
         public ActionResult ProdutosDaCategoriaComPrecoMinimo(double? preco, string nomeCategoria)
         {
-            ViewBag.Preco = preco;
-            ViewBag.NomeCategoria = nomeCategoria;
-            IList<Produto> produtos = new List<Produto>();
+            IList<Produto> produtos = this.produtoDAO.ProdutosDaCategoriaComPrecoMaiorDoQue(preco, nomeCategoria);
             return View(produtos);
         }
 

@@ -54,6 +54,7 @@ namespace LojaWeb.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<ISession>();
             int ordemExecucao = 1;
             kernel.BindFilter<TransactionFilter>(FilterScope.Global, ordemExecucao);
         }
