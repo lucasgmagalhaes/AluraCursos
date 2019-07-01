@@ -8,28 +8,39 @@ namespace CaelumEstoque.DAO
 {
     public class ProdutosDAO
     {
-
         public void Adiciona(Produto produto)
         {
-            Database.produtos.Add(produto);
+            using (var context = new EstoqueContext())
+            {
+                context.Produtos.Add(produto);
+                context.SaveChanges();
+            }
         }
 
         public IList<Produto> Lista()
         {
-            return Database.produtos;
+            using (var contexto = new EstoqueContext())
+            {
+                return contexto.Produtos.Include("Categoria").ToList();
+            }
         }
 
         public Produto BuscaPorId(int id)
         {
-            return Database.produtos.SingleOrDefault(produto => produto.Id == id);
+            using (var contexto = new EstoqueContext())
+            {
+                return contexto.Produtos.Include("Categoria")
+                    .Where(p => p.Id == id)
+                    .FirstOrDefault();
+            }
         }
 
         public void Atualiza(Produto produto)
         {
-            var prod = Database.produtos.SingleOrDefault(_produto => _produto.Id == produto.Id);
-            if(prod != null)
+            using (var contexto = new EstoqueContext())
             {
-                prod = produto;
+                contexto.Entry(produto).State = System.Data.Entity.EntityState.Modified;
+                contexto.SaveChanges();
             }
         }
     }

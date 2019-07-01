@@ -10,31 +10,44 @@ namespace CaelumEstoque.DAO
     {
         public void Adiciona(Usuario usuario)
         {
-            Database.usuarios.Add(usuario);
+            using (var context = new EstoqueContext())
+            {
+                context.Usuarios.Add(usuario);
+                context.SaveChanges();
+            }
         }
 
         public IList<Usuario> Lista()
         {
-            return Database.usuarios;
+            using (var contexto = new EstoqueContext())
+            {
+                return contexto.Usuarios.ToList();
+            }
         }
 
         public Usuario BuscaPorId(int id)
         {
-            return Database.usuarios.SingleOrDefault(usuario => usuario.Id == id);
+            using (var contexto = new EstoqueContext())
+            {
+                return contexto.Usuarios.Find(id);
+            }
         }
 
         public void Atualiza(Usuario usuario)
         {
-            var user = Database.usuarios.SingleOrDefault(_usuario => _usuario.Id == usuario.Id);
-            if (user != null)
+            using (var contexto = new EstoqueContext())
             {
-                user = usuario;
+                contexto.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
+                contexto.SaveChanges();
             }
         }
 
         public Usuario Busca(string login, string senha)
         {
-            return Database.usuarios.SingleOrDefault(usuario => usuario.Nome == login && usuario.Senha == senha);
+            using (var contexto = new EstoqueContext())
+            {
+                return contexto.Usuarios.FirstOrDefault(u => u.Nome == login && u.Senha == senha);
+            }
         }
     }
 }

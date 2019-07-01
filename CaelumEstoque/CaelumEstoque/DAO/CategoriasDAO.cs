@@ -10,26 +10,35 @@ namespace CaelumEstoque.DAO
     {
         public void Adiciona(CategoriaDoProduto categoria)
         {
-            Database.categorias.Add(categoria);
+            using (var context = new EstoqueContext())
+            {
+                context.Categorias.Add(categoria);
+                context.SaveChanges();
+            }
         }
 
         public IList<CategoriaDoProduto> Lista()
         {
-            return Database.categorias;
+            using (var contexto = new EstoqueContext())
+            {
+                return contexto.Categorias.ToList();
+            }
         }
 
         public CategoriaDoProduto BuscaPorId(int id)
         {
-            return Database.categorias.SingleOrDefault(categoria => categoria.Id == id);
+            using (var contexto = new EstoqueContext())
+            {
+                return contexto.Categorias.Find(id);
+            }
         }
 
         public void Atualiza(CategoriaDoProduto categoria)
         {
-           var cat = Database.categorias.SingleOrDefault(_categoria => _categoria.Id == categoria.Id);
-
-            if(categoria != null)
+            using (var contexto = new EstoqueContext())
             {
-                cat = categoria;
+                contexto.Entry(categoria).State = System.Data.Entity.EntityState.Modified;
+                contexto.SaveChanges();
             }
         }
     }
